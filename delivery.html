@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare · Home Delivery</title>
+    <link rel="icon" type="image/jpeg" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a7e8c' rx='20'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='Arial'%3E%2B%3C/text%3E%3C/svg%3E" />
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        display: ['"Poppins"', 'sans-serif'],
+                    },
+                    colors: {
+                        pharmacy: {
+                            50: '#e8f4f5',
+                            100: '#c5e3e6',
+                            200: '#9ecfd4',
+                            300: '#76bbc2',
+                            400: '#58acb4',
+                            500: '#3a9ca6',
+                            600: '#0a7e8c',
+                            700: '#0a6a76',
+                            800: '#0a5660',
+                            900: '#0a3d45',
+                        },
+                        teal: {
+                            50: '#e8f4f5',
+                            100: '#c5e3e6',
+                            200: '#9ecfd4',
+                            300: '#76bbc2',
+                            400: '#58acb4',
+                            500: '#3a9ca6',
+                            600: '#0a7e8c',
+                            700: '#0a6a76',
+                            800: '#0a5660',
+                            900: '#0a3d45',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1a2a3a;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+        /* ===== THEME VARIABLES ===== */
+        :root {
+            --bg-color: #f8fafc;
+            --bg-secondary: #f0f4f8;
+            --bg-card: #ffffff;
+            --bg-inverted: #0a1a2a;
+            --text-main: #1a2a3a;
+            --text-muted: #4a5a6a;
+            --text-dim: #7a8a9a;
+            --accent-color: #0a7e8c;
+            --accent-dark: #0a5c6a;
+            --accent-light: #e8f4f5;
+            --border-color: #d0dce8;
+            --border-light: rgba(10, 126, 140, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.92);
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --menu-hover-bg: rgba(10, 126, 140, 0.08);
+            --shadow-color: rgba(10, 126, 140, 0.08);
+            --success-color: #0a7e8c;
+        }
+
+        body.dark-mode {
+            --bg-color: #0a1628;
+            --bg-secondary: #0f1f33;
+            --bg-card: #142a40;
+            --bg-inverted: #f0f4f8;
+            --text-main: #e8f0f8;
+            --text-muted: #a0b8d0;
+            --text-dim: #6a8aaa;
+            --accent-color: #3a9ca6;
+            --accent-dark: #58acb4;
+            --accent-light: #0a2a3a;
+            --border-color: #1a3a50;
+            --border-light: rgba(58, 156, 166, 0.2);
+            --nav-bg: rgba(10, 22, 40, 0.92);
+            --drawer-bg: rgba(10, 22, 40, 0.98);
+            --menu-hover-bg: rgba(58, 156, 166, 0.12);
+            --shadow-color: rgba(58, 156, 166, 0.08);
+            --success-color: #3a9ca6;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600 !important;
+            letter-spacing: -0.01em;
+        }
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500 !important;
+            letter-spacing: -0.01em;
+        }
+        p {
+            font-weight: 400 !important;
+            line-height: 1.7;
+        }
+        b,
+        strong,
+        .font-bold {
+            font-weight: 600 !important;
+        }
+        .font-extrabold {
+            font-weight: 600 !important;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--nav-bg);
+            padding: 0 32px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            border-bottom: 1px solid transparent;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .navbar.scrolled {
+            height: 52px;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 30px var(--shadow-color);
+        }
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+            margin: 0 2px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 50%;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+
+        /* ===== DROPDOWN ===== */
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 58px;
+            left: 0;
+            transform: translateY(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .navbar.scrolled .dropdown-menu {
+            top: 52px;
+        }
+        .dropdown-inner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            min-width: 200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 6px 0;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+        }
+        body.light-mode .dropdown-inner {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 10px 22px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .dropdown-item:hover {
+            background: var(--menu-hover-bg);
+            color: var(--accent-color);
+            padding-left: 28px;
+        }
+        [dir="rtl"] .dropdown-item:hover {
+            padding-left: 22px;
+            padding-right: 28px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 10px 24px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            gap: 8px;
+        }
+        .btn-solid {
+            background: var(--accent-color);
+            color: #FFFFFF !important;
+        }
+        .btn-solid:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 126, 140, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color) !important;
+            background: var(--menu-hover-bg);
+        }
+
+        /* ===== THEME & RTL TOGGLES ===== */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .theme-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            transform: rotate(20deg);
+        }
+        .rtl-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .rtl-toggle:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+
+        /* ===== MOBILE DRAWER ===== */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .fullscreen-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 380px;
+            height: 100dvh;
+            background: var(--drawer-bg);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border-light);
+        }
+        [dir="rtl"] .fullscreen-menu {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+            border-left: none;
+            border-right: 1px solid var(--border-light);
+        }
+        .fullscreen-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        .mobile-link {
+            display: block;
+            width: 100%;
+            padding: 16px 28px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.25s;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-link:hover {
+            color: var(--accent-color);
+            padding-left: 36px;
+            background: var(--menu-hover-bg);
+        }
+        [dir="rtl"] .mobile-link:hover {
+            padding-left: 28px;
+            padding-right: 36px;
+        }
+        .mobile-menu-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+        .mobile-menu-btn:hover {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+
+        .mobile-dropdown {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 28px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+        .mobile-dropdown-header:hover {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+        .mobile-dropdown-header i {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .mobile-dropdown-header.open i {
+            transform: rotate(180deg);
+        }
+        .mobile-dropdown-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.3s ease;
+            padding-left: 16px;
+            background: var(--bg-secondary);
+        }
+        .mobile-dropdown-items.open {
+            max-height: 200px;
+            padding: 6px 0 10px 16px;
+        }
+        .mobile-dropdown-link {
+            border-bottom: none !important;
+            padding: 10px 28px !important;
+            font-size: 0.9rem !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 500 !important;
+            color: var(--text-muted) !important;
+        }
+        .mobile-dropdown-link:hover {
+            color: var(--accent-color) !important;
+            padding-left: 36px !important;
+            background: var(--menu-hover-bg) !important;
+        }
+        [dir="rtl"] .mobile-dropdown-link:hover {
+            padding-left: 28px !important;
+            padding-right: 36px !important;
+        }
+
+        /* ===== BRAND ===== */
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .brand-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(10, 126, 140, 0.3);
+            background: rgba(10, 126, 140, 0.12);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .brand-icon-wrapper i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        .brand-icon-wrapper:hover {
+            background: rgba(10, 126, 140, 0.25);
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        .brand-logo {
+            font-size: 1.6rem;
+            font-weight: 600 !important;
+            letter-spacing: -0.5px;
+        }
+        .brand-logo span {
+            color: var(--accent-color);
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            color: var(--accent-color);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border: 1px solid var(--border-light);
+        }
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.15;
+        }
+        .section-title span {
+            color: var(--accent-color);
+        }
+        .section-sub {
+            color: var(--text-muted);
+            max-width: 600px;
+            font-size: 1.1rem;
+        }
+        .section-pad {
+            padding: 80px 0;
+        }
+
+        /* ================================================================
+               FOOTER — ALWAYS DARK (overrides light/dark mode)
+               ================================================================ */
+        footer {
+            background-color: #0a1628 !important;
+            border-top: 1px solid #1a3a50 !important;
+            padding-top: 60px;
+            color: #e8f0f8 !important;
+        }
+
+        footer,
+        footer * {
+            color: #e8f0f8;
+        }
+
+        footer .brand-logo span {
+            color: #3a9ca6 !important;
+        }
+        footer .brand-icon-wrapper i {
+            color: #3a9ca6 !important;
+        }
+        footer .brand-icon-wrapper {
+            border-color: rgba(58, 156, 166, 0.3);
+            background: rgba(58, 156, 166, 0.12);
+        }
+        footer .brand-icon-wrapper:hover {
+            background: rgba(58, 156, 166, 0.25);
+            border-color: #3a9ca6;
+        }
+        footer .fa-chevron-right {
+            color: #3a9ca6 !important;
+        }
+        footer .text-accent {
+            color: #3a9ca6 !important;
+        }
+
+        footer .text-muted,
+        footer .text-dim,
+        footer p,
+        footer li,
+        footer span:not(.brand-logo span):not(.text-accent),
+        footer a:not(.brand-link):not(.social-circle) {
+            color: #a0b8d0 !important;
+        }
+
+        footer h4 {
+            color: #e8f0f8 !important;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        footer a:not(.brand-link):not(.social-circle) {
+            color: #a0b8d0 !important;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        footer a:not(.brand-link):not(.social-circle):hover {
+            color: #3a9ca6 !important;
+        }
+
+        footer .social-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(58, 156, 166, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: #a0b8d0 !important;
+            background: transparent;
+        }
+        footer .social-circle:hover {
+            background: #3a9ca6;
+            border-color: #3a9ca6;
+            color: #ffffff !important;
+            transform: translateY(-3px);
+        }
+
+        footer .footer-bottom {
+            border-top: 1px solid #1a3a50 !important;
+            padding: 24px 0;
+            margin-top: 40px;
+        }
+        footer .footer-bottom p,
+        footer .footer-bottom a {
+            color: #6a8aaa !important;
+        }
+        footer .footer-bottom a:hover {
+            color: #3a9ca6 !important;
+        }
+        footer .footer-bottom .text-accent {
+            color: #3a9ca6 !important;
+        }
+
+        footer a[href="#delivery-hero"] {
+            color: #6a8aaa !important;
+        }
+        footer a[href="#delivery-hero"]:hover {
+            color: #3a9ca6 !important;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer ul li {
+            padding: 0;
+            margin-bottom: 6px;
+        }
+
+        footer .fa-map-marker-alt,
+        footer .fa-phone,
+        footer .fa-envelope,
+        footer .fa-clock {
+            color: #3a9ca6 !important;
+        }
+
+        footer .brand-logo[style] {
+            color: #e8f0f8 !important;
+        }
+
+        /* ===== ANIMATIONS & UTILS ===== */
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        @keyframes float-delayed {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float-delayed 4s ease-in-out 2s infinite;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.75) 0%, rgba(10, 126, 140, 0.4) 100%);
+        }
+
+        /* ===== HERO – FULL VIEWPORT ===== */
+        #delivery-hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            /* dynamic viewport for mobile */
+            margin-top: -72px;
+            /* offset body padding-top */
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        #delivery-hero .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        #delivery-hero .hero-overlay-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        #delivery-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            text-align: center;
+            padding-top: 72px;
+            /* match navbar height so content isn't hidden */
+        }
+
+        /* responsive: on mobile the navbar is 64px tall */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 64px;
+            }
+            #delivery-hero {
+                margin-top: -64px;
+                min-height: 100dvh;
+            }
+            #delivery-hero .hero-content {
+                padding-top: 64px;
+            }
+            .navbar {
+                padding: 0 16px;
+                height: 64px;
+            }
+            .navbar.scrolled {
+                height: 58px;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+            .brand-logo {
+                font-size: 1.3rem;
+            }
+            .section-pad {
+                padding: 56px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .brand-icon-wrapper {
+                width: 34px;
+                height: 34px;
+            }
+            .brand-icon-wrapper i {
+                font-size: 1rem;
+            }
+            .brand-logo {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        [dir="rtl"] {
+            text-align: right;
+        }
+        [dir="rtl"] .ml-auto {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        [dir="rtl"] .mr-auto {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================================ -->
+    <nav class="navbar" id="main-nav">
+        <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
+            <a href="index.html" class="brand-link">
+                <div class="brand-icon-wrapper"><i class="fas fa-prescription-bottle-medical"></i></div>
+                <div class="brand-logo" style="color: var(--text-main) !important;"><span>Medi</span>Care</div>
+            </a>
+            <div class="hidden xl:flex justify-center items-center flex-1 gap-1">
+                <div class="dropdown">
+                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home 1</a>
+                            <a href="home-2.html" class="dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="delivery.html" class="nav-link active">Delivery</a>
+                <a href="prescription.html" class="nav-link">Prescription</a>
+                <a href="locations.html" class="nav-link">Locations</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="hidden xl:flex items-center gap-3">
+                <a href="login.html" class="btn btn-outline !py-1.5 !px-5 !text-[10px]">Login</a>
+                <a href="signup.html" class="btn btn-solid !py-1.5 !px-5 !text-[10px]">SignUp</a>
+                <div class="w-px h-5 bg-[var(--border-light)] mx-1"></div>
+                <button id="theme-toggle-desktop" class="theme-btn" aria-label="Toggle theme"><i class="fas fa-moon" id="theme-icon-desktop"></i></button>
+                <button id="rtl-btn" class="rtl-toggle" title="Toggle LTR/RTL">LTR</button>
+            </div>
+            <div class="xl:hidden flex items-center justify-end gap-2">
+                <button id="mobile-btn" class="mobile-menu-btn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- MOBILE DRAWER -->
+    <!-- ============================================================ -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-5 py-5 flex justify-between items-center shrink-0 border-b border-[var(--border-light)]">
+            <a href="index.html" class="brand-link" onclick="closeMenu()">
+                <div class="brand-icon-wrapper"><i class="fas fa-prescription-bottle-medical"></i></div>
+                <div class="brand-logo" style="color: var(--text-main) !important;"><span>Medi</span>Care</div>
+            </a>
+            <button id="close-menu" class="w-10 h-10 flex items-center justify-center text-2xl text-[var(--text-main)] hover:text-[var(--accent-color)] transition-colors"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex flex-col w-full overflow-y-auto flex-1 py-3">
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header" id="mobile-home-toggle"><span>Home</span><i class="fas fa-chevron-down"></i></div>
+                <div class="mobile-dropdown-items" id="mobile-home-items">
+                    <a href="index.html" class="mobile-link mobile-dropdown-link" onclick="closeMenu()">Home 1</a>
+                    <a href="home-2.html" class="mobile-link mobile-dropdown-link" onclick="closeMenu()">Home 2</a>
+                </div>
+            </div>
+            <a href="about.html" class="mobile-link" onclick="closeMenu()">About</a>
+            <a href="products.html" class="mobile-link" onclick="closeMenu()">Products</a>
+            <a href="delivery.html" class="mobile-link text-[var(--accent-color)]" onclick="closeMenu()">Delivery</a>
+            <a href="prescription.html" class="mobile-link" onclick="closeMenu()">Prescription</a>
+            <a href="locations.html" class="mobile-link" onclick="closeMenu()">Locations &amp; Timings</a>
+            <a href="contact.html" class="mobile-link" onclick="closeMenu()">Contact</a>
+        </div>
+       <!-- Footer Actions -->
+<div class="w-full px-5 py-5 border-t border-[var(--border-light)] flex flex-col gap-4 shrink-0 bg-[var(--bg-secondary)]">
+
+    <!-- Login & Sign Up Buttons -->
+    <div class="grid grid-cols-2 gap-3 w-full">
+
+        <!-- Login -->
+        <a href="login.html"
+           class="btn btn-outline w-full !py-3 text-center"
+           onclick="closeMenu()">
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            Login
+        </a>
+
+        <!-- Sign Up -->
+        <a href="signup.html"
+           class="btn btn-solid w-full !py-3 text-center"
+           onclick="closeMenu()">
+            <i class="fas fa-user-plus mr-2"></i>
+            Sign Up
+        </a>
+
+    </div>
+
+    <!-- Theme & Direction -->
+    <div class="flex justify-between items-center w-full">
+
+        <!-- Theme -->
+        <div class="flex items-center gap-3">
+            <span class="text-[var(--text-dim)] font-medium text-[10px] uppercase tracking-widest">
+                Theme
+            </span>
+
+            <button id="theme-toggle-mobile"
+                    class="theme-btn"
+                    aria-label="Toggle theme">
+                <i class="fas fa-moon" id="theme-icon-mobile"></i>
+            </button>
+        </div>
+
+        <!-- Direction -->
+        <div class="flex items-center gap-3">
+            <span class="text-[var(--text-dim)] font-medium text-[10px] uppercase tracking-widest">
+                Dir
+            </span>
+
+            <button id="rtl-toggle-mobile"
+                    class="rtl-toggle"
+                    title="Toggle RTL/LTR">
+                <span class="rtl-text">LTR</span>
+                <i class="fas fa-arrow-right-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Urgent Medicine Help -->
+    <a href="#contact"
+       class="btn btn-solid w-full !py-2.5 text-center"
+       onclick="closeMenu()">
+        <i class="fas fa-phone-alt mr-2"></i>
+        Urgent Medicine Help
+    </a>
+
+</div>
+</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- HOME DELIVERY HERO – FULL VIEWPORT IMAGE -->
+    <!-- ============================================================ -->
+    <section id="delivery-hero">
+        <!-- Image fills the entire viewport via object-fit:cover -->
+        <img class="hero-bg-img"
+        src="home2/del.webp"
+        alt="Home Delivery" />
+
+        <!-- Overlay layers -->
+        <div class="hero-overlay-layer hero-overlay"></div>
+        <div class="hero-overlay-layer" style="background: rgba(10, 22, 40, 0.60);"></div>
+
+        <!-- Content on top -->
+        <div class="hero-content">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4 border border-white/20">
+                <i class="fas fa-truck-fast text-[#3a9ca6]"></i>
+                <span class="text-white text-xs font-bold uppercase tracking-widest">Doorstep Service</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 drop-shadow-md">
+                Fast & Secure <br> <span class="text-[#3a9ca6]">Home Delivery</span>
+            </h1>
+            <p class="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                Skip the queue. Get your prescription medicines and healthcare essentials delivered safely to your home within hours.
+            </p>
+            <a href="#how-it-works" class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/10 border border-white/20 text-white hover:bg-[#3a9ca6] hover:border-[#3a9ca6] transition-all duration-300 animate-bounce">
+                <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1: HOW IT WORKS -->
+    <!-- ============================================================ -->
+    <section id="how-it-works" class="section-pad bg-[var(--bg-secondary)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="section-tag mb-4">
+                    <i class="fas fa-cogs mr-1"></i> Simple Process
+                </span>
+                <h2 class="section-title">
+                    How Delivery <span>Works</span>
+                </h2>
+                <p class="section-sub mx-auto mt-4">
+                    Getting your medicines delivered to your doorstep is easier than ever. Follow these simple steps.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                <div class="hidden lg:block absolute top-12 left-[12%] right-[12%] h-[2px] bg-[var(--border-light)] z-0"></div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 rounded-full bg-[var(--bg-card)] border-2 border-[var(--accent-color)] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-search text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-xl mb-3">1. Search &amp; Select</h4>
+                    <p class="text-[var(--text-muted)] text-sm px-2">Browse our extensive catalog of medicines and wellness products or search directly.</p>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 rounded-full bg-[var(--bg-card)] border-2 border-[var(--accent-color)] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-file-prescription text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-xl mb-3">2. Upload Rx</h4>
+                    <p class="text-[var(--text-muted)] text-sm px-2">For prescription medicines, easily upload your doctor's valid prescription photo.</p>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 rounded-full bg-[var(--bg-card)] border-2 border-[var(--accent-color)] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-credit-card text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-xl mb-3">3. Secure Payment</h4>
+                    <p class="text-[var(--text-muted)] text-sm px-2">Pay online securely via cards, UPI, or wallets. Cash on delivery is also available.</p>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 rounded-full bg-[var(--bg-card)] border-2 border-[var(--accent-color)] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-box-open text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-xl mb-3">4. Fast Delivery</h4>
+                    <p class="text-[var(--text-muted)] text-sm px-2">Receive your securely packaged order at your doorstep within the promised time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2: DELIVERY OPTIONS & AREAS -->
+    <!-- ============================================================ -->
+    <section id="delivery-options" class="section-pad bg-[var(--bg-color)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="section-tag mb-4">
+                        <i class="fas fa-clock mr-1"></i> Delivery Speed
+                    </span>
+                    <h2 class="section-title mb-6">
+                        Choose Your <span>Delivery Option</span>
+                    </h2>
+                    <p class="text-[var(--text-muted)] text-lg mb-8">
+                        Whether you need medicines urgently or are stocking up for the month, we have flexible delivery options tailored for you.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--accent-color)] shadow-md flex gap-5 items-start">
+                            <div class="w-12 h-12 rounded-full bg-[var(--accent-color)] text-white flex justify-center items-center shrink-0">
+                                <i class="fas fa-bolt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[var(--text-main)] font-bold text-lg">Express Delivery (2-4 Hours)</h4>
+                                <p class="text-[var(--text-muted)] text-sm mt-1 mb-2">Available for urgent needs in select metropolitan areas.</p>
+                                <span class="inline-block bg-[var(--accent-light)] text-[var(--accent-color)] text-xs font-bold px-3 py-1 rounded-full">Additional ₹49</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-light)] shadow-sm flex gap-5 items-start">
+                            <div class="w-12 h-12 rounded-full bg-[var(--bg-secondary)] text-[var(--text-main)] flex justify-center items-center shrink-0">
+                                <i class="fas fa-calendar-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-[var(--text-main)] font-bold text-lg">Standard Delivery (Next Day)</h4>
+                                <p class="text-[var(--text-muted)] text-sm mt-1 mb-2">Free standard delivery on all orders above ₹499.</p>
+                                <span class="inline-block bg-[#10B981]/10 text-[#10B981] text-xs font-bold px-3 py-1 rounded-full">Free over ₹499</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[var(--bg-secondary)] p-8 md:p-12 rounded-3xl border border-[var(--border-light)] text-center relative overflow-hidden">
+                    <div class="absolute -top-20 -right-20 w-60 h-60 bg-[var(--accent-color)] opacity-10 rounded-full blur-3xl"></div>
+                    <i class="fas fa-map-marked-alt text-6xl text-[var(--accent-color)] mb-6"></i>
+                    <h3 class="text-2xl font-bold text-[var(--text-main)] mb-4">Check Serviceability</h3>
+                    <p class="text-[var(--text-muted)] text-sm mb-8">Enter your area pin code to check delivery availability and estimated time.</p>
+
+                    <form class="flex w-full max-w-sm mx-auto bg-[var(--bg-card)] p-2 rounded-full border border-[var(--border-light)] shadow-sm" onsubmit="event.preventDefault(); alert('Delivery available in this area!');">
+                        <input type="text" placeholder="Enter PIN code (e.g. 110001)" class="w-full bg-transparent px-4 text-sm focus:outline-none text-[var(--text-main)]" required>
+                        <button type="submit" class="btn btn-solid !py-2 !px-6 !rounded-full shrink-0">Check</button>
+                    </form>
+                    <p class="text-xs text-[var(--text-dim)] mt-4">We currently serve 50+ cities nationwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3: SAFETY & PACKAGING -->
+    <!-- ============================================================ -->
+    <section id="safety-packaging" class="section-pad bg-[var(--bg-secondary)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="section-tag mb-4">
+                    <i class="fas fa-shield-alt mr-1"></i> Uncompromised Quality
+                </span>
+                <h2 class="section-title">
+                    Safety &amp; <span>Packaging</span>
+                </h2>
+                <p class="section-sub mx-auto mt-4">
+                    We go the extra mile to ensure your medicines arrive safely and in perfect condition.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border-light)] overflow-hidden hover:border-[var(--accent-color)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-full h-56 bg-[var(--bg-secondary)] overflow-hidden">
+                        <img src="home2/tem1.webp" alt="Temperature Control" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-12 h-12 rounded-full bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-temperature-low text-[var(--accent-color)] text-xl"></i>
+                        </div>
+                        <h3 class="text-[var(--text-main)] font-bold text-xl mb-3">Temperature Controlled</h3>
+                        <p class="text-[var(--text-muted)] text-sm">Cold chain medicines like insulin are transported in specialized cooling boxes to maintain efficacy.</p>
+                    </div>
+                </div>
+
+                <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border-light)] overflow-hidden hover:border-[var(--accent-color)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-full h-56 bg-[var(--bg-secondary)] overflow-hidden">
+                        <img src="home2/tem2.webp" alt="Tamper Proof" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-12 h-12 rounded-full bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-box text-[var(--accent-color)] text-xl"></i>
+                        </div>
+                        <h3 class="text-[var(--text-main)] font-bold text-xl mb-3">Tamper-Proof Packaging</h3>
+                        <p class="text-[var(--text-muted)] text-sm">Every order is sealed in secure, opaque packaging ensuring complete privacy and safety.</p>
+                    </div>
+                </div>
+
+                <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border-light)] overflow-hidden hover:border-[var(--accent-color)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-full h-56 bg-[var(--bg-secondary)] overflow-hidden">
+                        <img src="home2/tem3.avif" alt="Contactless Delivery" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-12 h-12 rounded-full bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-people-arrows text-[var(--accent-color)] text-xl"></i>
+                        </div>
+                        <h3 class="text-[var(--text-main)] font-bold text-xl mb-3">Contactless Delivery</h3>
+                        <p class="text-[var(--text-muted)] text-sm">Opt for zero-contact drop-offs. Our delivery agents follow strict hygiene and sanitization protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4: QUICK ORDER VIA RX -->
+    <!-- ============================================================ -->
+    <section id="quick-order" class="py-16 bg-[var(--accent-color)] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-full opacity-10" style="background-image: radial-gradient(circle at right top, #ffffff 10%, transparent 50%);"></div>
+
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+            <div class="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-10">
+
+                <div class="w-full lg:w-1/2 text-white text-center lg:text-left">
+                    <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+                        Got a Prescription? <br>Let Us Decode It.
+                    </h2>
+                    <p class="text-white/80 text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+                        Don't want to search for individual medicines? Simply upload a clear photo of your prescription and our pharmacists will build your cart instantly.
+                    </p>
+                    <ul class="space-y-3 mb-8 text-left max-w-md mx-auto lg:mx-0">
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-white"></i> <span>Free Pharmacist Consultation</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-white"></i> <span>Automated Refill Reminders</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-white"></i> <span>Substitute Alternative Suggestions (Save up to 40%)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="w-full lg:w-5/12 bg-[var(--bg-card)] rounded-2xl p-8 shadow-2xl relative">
+                    <div class="absolute -top-4 -right-4 bg-[#F59E0B] text-white font-bold px-4 py-1 rounded-full text-xs shadow-lg transform rotate-12">
+                        Fastest Method!
+                    </div>
+                    <div class="border-2 border-dashed border-[var(--accent-color)] rounded-xl p-8 text-center bg-[var(--accent-light)] transition-colors hover:bg-[#c5e3e6] cursor-pointer">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-[var(--accent-color)] mb-4"></i>
+                        <h3 class="text-[var(--text-main)] font-bold text-xl mb-2">Upload Prescription</h3>
+                        <p class="text-[var(--text-muted)] text-sm mb-6">Drop your image/pdf here or click to browse</p>
+                        <a href="prescription.html" class="btn btn-solid w-full !py-3">
+                            Select File
+                        </a>
+                    </div>
+                    <p class="text-[var(--text-dim)] text-xs text-center mt-4">
+                        Valid prescriptions must include doctor's details and date.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5: DELIVERY FAQS -->
+    <!-- ============================================================ -->
+    <section id="delivery-faqs" class="section-pad bg-[var(--bg-color)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1000px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-12">
+                <span class="section-tag mb-4">
+                    <i class="fas fa-question-circle mr-1"></i> Support
+                </span>
+                <h2 class="section-title">
+                    Delivery <span>FAQs</span>
+                </h2>
+                <p class="section-sub mx-auto mt-4">
+                    Common questions about our delivery process and policies.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-[var(--bg-card)] border border-[var(--border-light)] rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <h4 class="text-[var(--text-main)] font-bold text-lg mb-2 flex items-center gap-3">
+                        <i class="fas fa-truck text-[var(--accent-color)]"></i> What are the delivery charges?
+                    </h4>
+                    <p class="text-[var(--text-muted)] text-sm pl-8 leading-relaxed">
+                        We offer FREE standard delivery on all orders above ₹499. For orders below ₹499, a nominal delivery fee of ₹40 applies. Express delivery is available in select areas for an additional ₹49.
+                    </p>
+                </div>
+
+                <div class="bg-[var(--bg-card)] border border-[var(--border-light)] rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <h4 class="text-[var(--text-main)] font-bold text-lg mb-2 flex items-center gap-3">
+                        <i class="fas fa-box-open text-[var(--accent-color)]"></i> Can I return medicines if they are unsealed?
+                    </h4>
+                    <p class="text-[var(--text-muted)] text-sm pl-8 leading-relaxed">
+                        Due to health and safety regulations, we cannot accept returns for unsealed medicines. However, if you receive a damaged or incorrect product, we offer a 100% replacement guarantee within 48 hours.
+                    </p>
+                </div>
+
+                <div class="bg-[var(--bg-card)] border border-[var(--border-light)] rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <h4 class="text-[var(--text-main)] font-bold text-lg mb-2 flex items-center gap-3">
+                        <i class="fas fa-map-marker-alt text-[var(--accent-color)]"></i> How do I track my order?
+                    </h4>
+                    <p class="text-[var(--text-muted)] text-sm pl-8 leading-relaxed">
+                        Once your order is dispatched, you will receive an SMS and email with a live tracking link. You can also track your order in real-time from the 'My Orders' section in your account dashboard.
+                    </p>
+                </div>
+
+                <div class="bg-[var(--bg-card)] border border-[var(--border-light)] rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <h4 class="text-[var(--text-main)] font-bold text-lg mb-2 flex items-center gap-3">
+                        <i class="fas fa-ice-cream text-[var(--accent-color)]"></i> Do you deliver temperature-sensitive medicines?
+                    </h4>
+                    <p class="text-[var(--text-muted)] text-sm pl-8 leading-relaxed">
+                        Yes! We use specialized cold-chain packaging (insulated boxes with gel packs) for temperature-sensitive medications like insulin and vaccines to ensure they remain effective during transit.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <p class="text-[var(--text-muted)] text-sm mb-4">Still have questions?</p>
+                <a href="contact.html" class="btn btn-outline">
+                    <i class="fas fa-headset mr-2"></i> Contact Support
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER — ALWAYS DARK -->
+    <!-- ============================================================ -->
+    <footer>
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div>
+                    <a href="index.html" class="brand-link mb-4 inline-flex">
+                        <div class="brand-icon-wrapper">
+                            <i class="fas fa-prescription-bottle-medical"></i>
+                        </div>
+                        <div class="brand-logo" style="color: #e8f0f8 !important;">
+                            <span>Medi</span>Care
+                        </div>
+                    </a>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed">Your trusted pharmacy partner for genuine medicines, expert advice, and fast home delivery. Serving communities since 2010.</p>
+                    <div class="flex gap-3 mt-5">
+                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Home</a></li>
+                        <li><a href="about.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> About</a></li>
+                        <li><a href="product.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Products</a></li>
+                        <li><a href="delivery.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Home Delivery</a></li>
+                        <li><a href="prescription.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Upload Prescription</a></li>
+                        <li><a href="locations.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Locations</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Product Categories</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="product.html#prescription-medicines" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Prescription Meds</a></li>
+                        <li><a href="product.html#vitamins-supplements" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Vitamins &amp; Supplements</a></li>
+                        <li><a href="product.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Baby Care</a></li>
+                        <li><a href="product.html#medical-devices" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Surgical Devices</a></li>
+                        <li><a href="product.html" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[var(--accent-color)]"></i> Personal Care</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-[var(--accent-color)] mt-0.5"></i>
+                            <span class="text-[var(--text-muted)]">45 Medical Plaza, Connaught Place, New Delhi</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone text-[var(--accent-color)] mt-0.5"></i>
+                            <span class="text-[var(--text-muted)]"><a href="tel:+16001234567" class="hover:text-[var(--accent-color)]">+1 600 123 4567</a></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope text-[var(--accent-color)] mt-0.5"></i>
+                            <span class="text-[var(--text-muted)]"><a href="mailto:care@medicarepharmacy.com" class="hover:text-[var(--accent-color)]">care@medicarepharmacy.com</a></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock text-[var(--accent-color)] mt-0.5"></i>
+                            <span class="text-[var(--text-muted)]">Mon–Sat: 7:30 AM – 10:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-[var(--text-dim)]">&copy; 2026 <span class="text-[var(--accent-color)] font-semibold">MediCare</span> Pharmacy. All rights reserved.</p>
+                <div class="flex flex-wrap gap-6 text-sm">
+                    <a href="#" class="text-[var(--text-dim)] hover:text-[var(--accent-color)] transition-colors">Terms of Service</a>
+                    <a href="#" class="text-[var(--text-dim)] hover:text-[var(--accent-color)] transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-[var(--text-dim)] hover:text-[var(--accent-color)] transition-colors">Refund Policy</a>
+                    <a href="#" class="text-[var(--text-dim)] hover:text-[var(--accent-color)] transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="#delivery-hero" class="inline-flex items-center gap-2 text-[var(--text-dim)] text-xs font-semibold uppercase tracking-widest hover:text-[var(--accent-color)] transition-colors">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script>
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 30) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // ===== MOBILE DRAWER =====
+        const mobileBtn = document.getElementById('mobile-btn');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            fullscreenMenu.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            drawerOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        mobileBtn.onclick = toggleMenu;
+        closeMenuBtn.onclick = closeMenu;
+        drawerOverlay.onclick = closeMenu;
+
+        window.addEventListener('resize', () => { if (window.innerWidth >= 1280) closeMenu(); });
+
+        // ===== THEME TOGGLE =====
+        const themeDesk = document.getElementById('theme-toggle-desktop');
+        const themeMob = document.getElementById('theme-toggle-mobile');
+        const iconDesk = document.getElementById('theme-icon-desktop');
+        const iconMob = document.getElementById('theme-icon-mobile');
+        const savedTheme = localStorage.getItem('pharmacy-theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme ? savedTheme === 'dark' : systemDark;
+
+        function setTheme(dark) {
+            if (dark) {
+                document.body.classList.add('dark-mode');
+                if (iconDesk) iconDesk.className = 'fas fa-sun';
+                if (iconMob) iconMob.className = 'fas fa-sun';
+                localStorage.setItem('pharmacy-theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (iconDesk) iconDesk.className = 'fas fa-moon';
+                if (iconMob) iconMob.className = 'fas fa-moon';
+                localStorage.setItem('pharmacy-theme', 'light');
+            }
+        }
+        setTheme(isDark);
+
+        function toggleTheme() { setTheme(!document.body.classList.contains('dark-mode')); }
+        if (themeDesk) themeDesk.addEventListener('click', toggleTheme);
+        if (themeMob) themeMob.addEventListener('click', toggleTheme);
+
+        // ===== RTL TOGGLE =====
+        const rtlBtn = document.getElementById('rtl-btn');
+        const rtlMob = document.getElementById('rtl-toggle-mobile');
+        const rtlTexts = document.querySelectorAll('.rtl-text');
+
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.dir === 'rtl') {
+                html.dir = 'ltr';
+                rtlTexts.forEach(el => el.textContent = 'LTR');
+                if (rtlBtn) rtlBtn.innerHTML = 'LTR <i class="fas fa-arrow-right-arrow-left"></i>';
+            } else {
+                html.dir = 'rtl';
+                rtlTexts.forEach(el => el.textContent = 'RTL');
+                if (rtlBtn) rtlBtn.innerHTML = 'RTL <i class="fas fa-arrow-right-arrow-left"></i>';
+            }
+        }
+        if (rtlBtn) rtlBtn.addEventListener('click', toggleRTL);
+        if (rtlMob) rtlMob.addEventListener('click', toggleRTL);
+
+        // ===== MOBILE DROPDOWN TOGGLE =====
+        (function() {
+            const homeToggle = document.getElementById('mobile-home-toggle');
+            const homeItems = document.getElementById('mobile-home-items');
+            if (homeToggle && homeItems) {
+                homeToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                    homeItems.classList.toggle('open');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

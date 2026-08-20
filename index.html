@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare · Pharmacy & Medical Store</title>
+    <link rel="icon" type="image/jpeg" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a7e8c' rx='20'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='Arial'%3E%2B%3C/text%3E%3C/svg%3E" />
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        display: ['"Poppins"', 'sans-serif'],
+                    },
+                    colors: {
+                        pharmacy: {
+                            50: '#e8f4f5',
+                            100: '#c5e3e6',
+                            200: '#9ecfd4',
+                            300: '#76bbc2',
+                            400: '#58acb4',
+                            500: '#3a9ca6',
+                            600: '#0a7e8c',
+                            700: '#0a6a76',
+                            600: '#0a5660',
+                            900: '#0a3d45',
+                        },
+                        teal: {
+                            50: '#e8f4f5',
+                            100: '#c5e3e6',
+                            200: '#9ecfd4',
+                            300: '#76bbc2',
+                            400: '#58acb4',
+                            500: '#3a9ca6',
+                            600: '#0a7e8c',
+                            700: '#0a6a76',
+                            600: '#0a5660',
+                            900: '#0a3d45',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1a2a3a;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+        /* ===== THEME VARIABLES ===== */
+        :root {
+            --bg-color: #f8fafc;
+            --bg-secondary: #f0f4f8;
+            --bg-card: #ffffff;
+            --bg-inverted: #0a1a2a;
+            --text-main: #1a2a3a;
+            --text-muted: #4a5a6a;
+            --text-dim: #7a8a9a;
+            --accent-color: #0a7e8c;
+            --accent-dark: #0a5c6a;
+            --accent-light: #e8f4f5;
+            --border-color: #d0dce8;
+            --border-light: rgba(10, 126, 140, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.92);
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --menu-hover-bg: rgba(10, 126, 140, 0.08);
+            --shadow-color: rgba(10, 126, 140, 0.08);
+            --success-color: #0a7e8c;
+        }
+
+        body.dark-mode {
+            --bg-color: #0a1628;
+            --bg-secondary: #0f1f33;
+            --bg-card: #142a40;
+            --bg-inverted: #f0f4f8;
+            --text-main: #e8f0f8;
+            --text-muted: #a0b8d0;
+            --text-dim: #6a8aaa;
+            --accent-color: #3a9ca6;
+            --accent-dark: #58acb4;
+            --accent-light: #0a2a3a;
+            --border-color: #1a3a50;
+            --border-light: rgba(58, 156, 166, 0.2);
+            --nav-bg: rgba(10, 22, 40, 0.92);
+            --drawer-bg: rgba(10, 22, 40, 0.98);
+            --menu-hover-bg: rgba(58, 156, 166, 0.12);
+            --shadow-color: rgba(58, 156, 166, 0.08);
+            --success-color: #3a9ca6;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600 !important;
+            letter-spacing: -0.01em;
+        }
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500 !important;
+            letter-spacing: -0.01em;
+        }
+        p {
+            font-weight: 400 !important;
+            line-height: 1.7;
+        }
+        b,
+        strong,
+        .font-bold {
+            font-weight: 600 !important;
+        }
+        .font-extrabold {
+            font-weight: 600 !important;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--nav-bg);
+            padding: 0 32px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            border-bottom: 1px solid transparent;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .navbar.scrolled {
+            height: 52px;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 30px var(--shadow-color);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 16px;
+            margin: 0 2px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 50%;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+
+        /* ===== DROPDOWN (Desktop) ===== */
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 58px;
+            left: 0;
+            transform: translateY(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .navbar.scrolled .dropdown-menu {
+            top: 52px;
+        }
+        .dropdown-inner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            min-width: 200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 6px 0;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+        }
+        body.light-mode .dropdown-inner {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 22px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            text-align: left;
+            white-space: nowrap;
+            border-radius: 0;
+        }
+        .dropdown-item:hover {
+            background: var(--menu-hover-bg);
+            color: var(--accent-color);
+            padding-left: 28px;
+        }
+        [dir="rtl"] .dropdown-item:hover {
+            padding-left: 22px;
+            padding-right: 28px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 10px 24px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            gap: 8px;
+        }
+        .btn-solid {
+            background: var(--accent-color);
+            color: #FFFFFF !important;
+        }
+        .btn-solid:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 126, 140, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color) !important;
+            background: var(--menu-hover-bg);
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .theme-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            transform: rotate(20deg);
+        }
+
+        /* ===== MOBILE DRAWER ===== */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .fullscreen-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 380px;
+            height: 100dvh;
+            background: var(--drawer-bg);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border-light);
+        }
+        [dir="rtl"] .fullscreen-menu {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+            border-left: none;
+            border-right: 1px solid var(--border-light);
+        }
+        .fullscreen-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .mobile-link {
+            display: block;
+            width: 100%;
+            padding: 16px 28px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.25s;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-link:hover {
+            color: var(--accent-color);
+            padding-left: 36px;
+            background: var(--menu-hover-bg);
+        }
+        [dir="rtl"] .mobile-link:hover {
+            padding-left: 28px;
+            padding-right: 36px;
+        }
+
+        .mobile-menu-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+        .mobile-menu-btn:hover {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+
+        /* ===== MOBILE DROPDOWN ===== */
+        .mobile-dropdown {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 28px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+        .mobile-dropdown-header:hover {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+        .mobile-dropdown-header i {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .mobile-dropdown-header.open i {
+            transform: rotate(180deg);
+        }
+        .mobile-dropdown-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.3s ease;
+            padding-left: 16px;
+            background: var(--bg-secondary);
+        }
+        .mobile-dropdown-items.open {
+            max-height: 200px;
+            padding: 6px 0 10px 16px;
+        }
+        .mobile-dropdown-link {
+            border-bottom: none !important;
+            padding: 10px 28px !important;
+            font-size: 0.9rem !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 500 !important;
+            color: var(--text-muted) !important;
+        }
+        .mobile-dropdown-link:hover {
+            color: var(--accent-color) !important;
+            padding-left: 36px !important;
+            background: var(--menu-hover-bg) !important;
+        }
+        [dir="rtl"] .mobile-dropdown-link:hover {
+            padding-left: 28px !important;
+            padding-right: 36px !important;
+        }
+
+        /* ===== BRAND ===== */
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .brand-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(10, 126, 140, 0.3);
+            background: rgba(10, 126, 140, 0.12);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .brand-icon-wrapper i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        .brand-icon-wrapper:hover {
+            background: rgba(10, 126, 140, 0.25);
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        .brand-logo {
+            font-size: 1.6rem;
+            font-weight: 600 !important;
+            letter-spacing: -0.5px;
+        }
+        .brand-logo span {
+            color: var(--accent-color);
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            color: var(--accent-color);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border: 1px solid var(--border-light);
+        }
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.15;
+        }
+        .section-title span {
+            color: var(--accent-color);
+        }
+        .section-sub {
+            color: var(--text-muted);
+            max-width: 600px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FOOTER — ALWAYS DARK ===== */
+        footer {
+            background: #0a1628 !important;
+            border-top: 1px solid #1a3a50 !important;
+            padding-top: 60px;
+            color: #e8f0f8 !important;
+        }
+        footer h4 {
+            color: #e8f0f8 !important;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+        footer a,
+        footer li,
+        footer span:not(.brand-logo span) {
+            color: #a0b8d0 !important;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        footer a:hover {
+            color: #3a9ca6 !important;
+        }
+        footer .social-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #1a3a50 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: #a0b8d0 !important;
+            background: transparent;
+        }
+        footer .social-circle:hover {
+            background: #3a9ca6 !important;
+            border-color: #3a9ca6 !important;
+            color: #ffffff !important;
+            transform: translateY(-3px);
+        }
+        footer .footer-bottom {
+            border-top: 1px solid #1a3a50 !important;
+            padding: 24px 0;
+            margin-top: 40px;
+        }
+        footer .footer-bottom p {
+            color: #6a8aaa !important;
+        }
+        footer .footer-bottom a {
+            color: #6a8aaa !important;
+        }
+        footer .footer-bottom a:hover {
+            color: #3a9ca6 !important;
+        }
+        /* Footer brand — matches navbar exactly (dark mode) */
+        footer .brand-link .brand-icon-wrapper {
+            border-color: rgba(58, 156, 166, 0.3) !important;
+            background: rgba(58, 156, 166, 0.12) !important;
+        }
+        footer .brand-link .brand-icon-wrapper i {
+            color: #3a9ca6 !important;
+        }
+        footer .brand-link .brand-logo {
+            color: #e8f0f8 !important;
+            font-size: 1.6rem;
+            font-weight: 600 !important;
+            letter-spacing: -0.5px;
+        }
+        footer .brand-link .brand-logo span {
+            color: #3a9ca6 !important;
+        }
+        footer .footer-bottom .text-accent {
+            color: #3a9ca6 !important;
+        }
+        /* back-to-top link */
+        footer .back-top-link {
+            color: #6a8aaa !important;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            transition: color 0.3s;
+        }
+        footer .back-top-link:hover {
+            color: #3a9ca6 !important;
+        }
+        /* footer list icons */
+        footer ul li i.fa-chevron-right {
+            color: #3a9ca6 !important;
+            font-size: 8px;
+        }
+        footer ul li a:hover {
+            padding-left: 12px !important;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        @keyframes float-delayed {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float-delayed 4s ease-in-out 2s infinite;
+        }
+
+        @keyframes subtleZoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.06);
+            }
+        }
+        .animate-zoom {
+            animation: subtleZoom 20s infinite alternate ease-in-out;
+        }
+
+        /* ===== HERO OVERLAY ===== */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.75) 0%, rgba(10, 126, 140, 0.4) 100%);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 64px;
+            }
+            .navbar {
+                padding: 0 16px;
+                height: 64px;
+            }
+            .navbar.scrolled {
+                height: 58px;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+            .brand-logo {
+                font-size: 1.3rem;
+            }
+            footer .brand-link .brand-logo {
+                font-size: 1.3rem !important;
+            }
+        }
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .brand-icon-wrapper {
+                width: 34px;
+                height: 34px;
+            }
+            .brand-icon-wrapper i {
+                font-size: 1rem;
+            }
+            .brand-logo {
+                font-size: 1.1rem;
+            }
+            footer .brand-link .brand-logo {
+                font-size: 1.1rem !important;
+            }
+            footer .brand-link .brand-icon-wrapper {
+                width: 34px;
+                height: 34px;
+            }
+            footer .brand-link .brand-icon-wrapper i {
+                font-size: 1rem;
+            }
+        }
+
+        /* RTL Support */
+        [dir="rtl"] {
+            text-align: right;
+        }
+        [dir="rtl"] .ml-auto {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        [dir="rtl"] .mr-auto {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        /* Trust badge pulse */
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        .trust-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* RTL toggle button */
+        .rtl-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .rtl-toggle:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================================ -->
+    <nav class="navbar" id="main-nav">
+        <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
+            <!-- Brand -->
+            <a href="#home" class="brand-link">
+                <div class="brand-icon-wrapper">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div class="brand-logo" style="color: var(--text-main) !important;">
+                    <span>Medi</span>Care
+                </div>
+            </a>
+
+            <!-- ===== DESKTOP NAV with HOME DROPDOWN & ABOUT ===== -->
+            <div class="hidden xl:flex justify-center items-center flex-1 gap-1">
+                <!-- HOME DROPDOWN -->
+                <div class="dropdown">
+                    <div class="nav-link active">
+                        Home <i class="fas fa-chevron-down text-[8px] ml-1 opacity-50"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item" style="color: var(--accent-color);">Home 1</a>
+                            <a href="home-2.html" class="dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Link -->
+                <a href="about.html" class="nav-link">About</a>
+                <!-- Regular links -->
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="delivery.html" class="nav-link"> Delivery</a>
+                <a href="prescription.html" class="nav-link">prescription</a>
+                <a href="locations.html" class="nav-link">Locations</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <!-- ===== DESKTOP ACTIONS (Login / Signup + Toggles) ===== -->
+            <div class="hidden xl:flex items-center gap-3">
+                <!-- Login & Signup Buttons -->
+                <a href="login.html" class="btn btn-outline !py-1.5 !px-5 !text-[10px]">Login</a>
+                <a href="signup.html" class="btn btn-solid !py-1.5 !px-5 !text-[10px]">SignUp</a>
+
+                <div class="w-px h-5 bg-[var(--border-light)] mx-1"></div>
+
+                <button id="theme-toggle-desktop" class="theme-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon-desktop"></i>
+                </button>
+                <button id="rtl-btn" class="rtl-toggle" title="Toggle LTR/RTL">LTR</button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="xl:hidden flex items-center justify-end gap-2">
+                <button id="mobile-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- MOBILE DRAWER -->
+    <!-- ============================================================ -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <!-- Header -->
+        <div class="w-full px-5 py-5 flex justify-between items-center shrink-0 border-b border-[var(--border-light)]">
+            <a href="#home" class="brand-link" onclick="closeMenu()">
+                <div class="brand-icon-wrapper">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div class="brand-logo" style="color: var(--text-main) !important;">
+                    <span>Medi</span>Care
+                </div>
+            </a>
+            <button id="close-menu" class="w-10 h-10 flex items-center justify-center text-2xl text-[var(--text-main)] hover:text-[var(--accent-color)] transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex flex-col w-full overflow-y-auto flex-1 py-3">
+            <!-- HOME DROPDOWN (Mobile) -->
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header" id="mobile-home-toggle">
+                    <span>Home</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="mobile-dropdown-items" id="mobile-home-items">
+                    <a href="index.html" class="mobile-link mobile-dropdown-link" onclick="closeMenu()">Home 1</a>
+                    <a href="home-2.html" class="mobile-link mobile-dropdown-link" onclick="closeMenu()">Home 2</a>
+                </div>
+            </div>
+            <!-- About Link -->
+            <a href="about.html" class="mobile-link" onclick="closeMenu()">About</a>
+            <!-- Regular links -->
+            <a href="products.html" class="mobile-link" onclick="closeMenu()">Products</a>
+            <a href="delivery.html" class="mobile-link" onclick="closeMenu()">Delivery</a>
+            <a href="prescription.html" class="mobile-link" onclick="closeMenu()">Prescription</a>
+            <a href="locations.html" class="mobile-link" onclick="closeMenu()">Locations &amp; Timings</a>
+            <a href="contact.html" class="mobile-link" onclick="closeMenu()">Contact</a>
+        </div>
+
+      <!-- Footer Actions -->
+<div class="w-full px-5 py-5 border-t border-[var(--border-light)] flex flex-col gap-4 shrink-0 bg-[var(--bg-secondary)]">
+
+    <!-- Login & Sign Up Buttons -->
+    <div class="grid grid-cols-2 gap-3 w-full">
+
+        <!-- Login -->
+        <a href="login.html"
+           class="btn btn-outline w-full !py-3 text-center"
+           onclick="closeMenu()">
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            Login
+        </a>
+
+        <!-- Sign Up -->
+        <a href="signup.html"
+           class="btn btn-solid w-full !py-3 text-center"
+           onclick="closeMenu()">
+            <i class="fas fa-user-plus mr-2"></i>
+            Sign Up
+        </a>
+
+    </div>
+
+    <!-- Theme & Direction -->
+    <div class="flex justify-between items-center w-full">
+
+        <!-- Theme -->
+        <div class="flex items-center gap-3">
+            <span class="text-[var(--text-dim)] font-medium text-[10px] uppercase tracking-widest">
+                Theme
+            </span>
+
+            <button id="theme-toggle-mobile"
+                    class="theme-btn"
+                    aria-label="Toggle theme">
+                <i class="fas fa-moon" id="theme-icon-mobile"></i>
+            </button>
+        </div>
+
+        <!-- Direction -->
+        <div class="flex items-center gap-3">
+            <span class="text-[var(--text-dim)] font-medium text-[10px] uppercase tracking-widest">
+                Dir
+            </span>
+
+            <button id="rtl-toggle-mobile"
+                    class="rtl-toggle"
+                    title="Toggle RTL/LTR">
+                <span class="rtl-text">LTR</span>
+                <i class="fas fa-arrow-right-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Urgent Medicine Help -->
+    <a href="#contact"
+       class="btn btn-solid w-full !py-2.5 text-center"
+       onclick="closeMenu()">
+        <i class="fas fa-phone-alt mr-2"></i>
+        Urgent Medicine Help
+    </a>
+
+</div>
+</div>
+    <!-- ============================================================ -->
+    <!-- PHARMACY HERO SECTION – Enhanced with Medical Imagery & Content -->
+    <!-- ============================================================ -->
+    <section id="home" class="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden border-b border-[var(--border-light)]">
+        <!-- Background Image – Pharmacy & Medical Theme -->
+        <div class="absolute inset-0 z-0">
+            <!-- High-quality pharmacy/medical background image -->
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1920&q=80"
+            alt="Modern Pharmacy Store"
+            class="w-full h-full object-cover scale-110 animate-zoom">
+
+            <!-- Enhanced overlay with medical gradient -->
+            <div class="absolute inset-0 hero-overlay"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/85 via-[#0a1628]/50 to-[#0a1628]/75"></div>
+
+            <!-- Subtle medical pattern overlay -->
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <!-- Trust Badge -->
+            <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3a9ca6] opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-[#3a9ca6]"></span>
+                </span>
+                <span class="text-white text-xs font-bold uppercase tracking-[0.2em]">
+                    <i class="fas fa-heartbeat mr-2"></i> Trusted Care · Home Delivery
+                </span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight text-white mb-5 drop-shadow-lg">
+                Your Health, <br>
+                <span class="text-[#3a9ca6] drop-shadow-md relative">
+                    Our Priority
+                </span>
+            </h1>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
+                <a href="#products" class="group w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 bg-[#3a9ca6] text-white rounded-full font-semibold text-base sm:text-lg hover:scale-105 transition duration-300 shadow-lg shadow-[#3a9ca6]/30 hover:shadow-[#3a9ca6]/50 block relative overflow-hidden">
+                    <span class="relative z-10 flex items-center justify-center">
+                        <i class="fas fa-shopping-bag mr-2"></i> Browse Products
+                        <i class="fas fa-arrow-right ml-2 text-sm transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </span>
+                    <span class="absolute inset-0 bg-gradient-to-r from-[#3a9ca6] to-[#58acb4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </a>
+                <a href="#delivery" class="group w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 border-2 border-white text-white rounded-full font-semibold text-base sm:text-lg hover:bg-white hover:text-[#0a1628] transition duration-300 shadow-lg block relative overflow-hidden">
+                    <span class="relative z-10 flex items-center justify-center">
+                        <i class="fas fa-truck mr-2"></i> Home Delivery
+                        <i class="fas fa-arrow-right ml-2 text-sm transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </span>
+                    <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                </a>
+            </div>
+
+            <!-- Trust Badges – Enhanced -->
+            <div class="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/90">
+                <div class="flex items-center gap-2.5 text-sm font-medium hover:text-white transition-colors duration-200">
+                    <div class="w-9 h-9 rounded-full bg-[#3a9ca6]/20 flex items-center justify-center border border-[#3a9ca6]/30">
+                        <i class="fas fa-check-circle text-[#3a9ca6] text-base"></i>
+                    </div>
+                    <span>100% Genuine Medicines</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-sm font-medium hover:text-white transition-colors duration-200">
+                    <div class="w-9 h-9 rounded-full bg-[#3a9ca6]/20 flex items-center justify-center border border-[#3a9ca6]/30">
+                        <i class="fas fa-truck text-[#3a9ca6] text-base"></i>
+                    </div>
+                    <span>Free Home Delivery</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-sm font-medium hover:text-white transition-colors duration-200">
+                    <div class="w-9 h-9 rounded-full bg-[#3a9ca6]/20 flex items-center justify-center border border-[#3a9ca6]/30">
+                        <i class="fas fa-clock text-[#3a9ca6] text-base"></i>
+                    </div>
+                    <span>24/7 Urgent Support</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-sm font-medium hover:text-white transition-colors duration-200">
+                    <div class="w-9 h-9 rounded-full bg-[#3a9ca6]/20 flex items-center justify-center border border-[#3a9ca6]/30">
+                        <i class="fas fa-shield-alt text-[#3a9ca6] text-base"></i>
+                    </div>
+                    <span>Trusted Since 2010</span>
+                </div>
+            </div>
+
+            <!-- Floating Pharmacy Elements (Decorative) -->
+            <div class="absolute -top-10 left-10 animate-float opacity-20 hidden lg:block">
+                <i class="fas fa-prescription-bottle text-6xl text-[#3a9ca6]"></i>
+            </div>
+            <div class="absolute -bottom-10 right-10 animate-float-delayed opacity-20 hidden lg:block">
+                <i class="fas fa-capsules text-6xl text-[#3a9ca6]"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ABOUT FEATURES SECTION -->
+    <!-- ============================================================ -->
+    <section id="features" class="py-20 bg-[var(--bg-secondary)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="section-tag mb-4"><i class="fas fa-star mr-1"></i> Why Choose Us</span>
+                <h2 class="section-title">The MediCare <span>Advantage</span></h2>
+                <p class="section-sub mx-auto mt-4">We are committed to providing you with the best medical care and authentic products.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl hover:border-[var(--accent-color)]">
+                    <div class="w-14 h-14 rounded-full bg-[var(--accent-light)] flex items-center justify-center mb-6 border border-[var(--border-light)]">
+                        <i class="fas fa-shield-alt text-[var(--accent-color)] text-2xl"></i>
+                    </div>
+                    <h3 class="text-[var(--text-main)] text-lg font-bold mb-3">100% Genuine</h3>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed">All our medicines and products are sourced directly from authorized manufacturers.</p>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl hover:border-[var(--accent-color)]">
+                    <div class="w-14 h-14 rounded-full bg-[var(--accent-light)] flex items-center justify-center mb-6 border border-[var(--border-light)]">
+                        <i class="fas fa-shipping-fast text-[var(--accent-color)] text-2xl"></i>
+                    </div>
+                    <h3 class="text-[var(--text-main)] text-lg font-bold mb-3">Express Delivery</h3>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed">Get your medicines delivered right to your doorstep within hours of ordering.</p>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl hover:border-[var(--accent-color)]">
+                    <div class="w-14 h-14 rounded-full bg-[var(--accent-light)] flex items-center justify-center mb-6 border border-[var(--border-light)]">
+                        <i class="fas fa-user-md text-[var(--accent-color)] text-2xl"></i>
+                    </div>
+                    <h3 class="text-[var(--text-main)] text-lg font-bold mb-3">Expert Pharmacists</h3>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed">Our licensed pharmacists are available 24/7 to answer your health queries.</p>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl hover:border-[var(--accent-color)]">
+                    <div class="w-14 h-14 rounded-full bg-[var(--accent-light)] flex items-center justify-center mb-6 border border-[var(--border-light)]">
+                        <i class="fas fa-tags text-[var(--accent-color)] text-2xl"></i>
+                    </div>
+                    <h3 class="text-[var(--text-main)] text-lg font-bold mb-3">Best Prices</h3>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed">Enjoy incredible discounts and offers on top brands and prescribed medicines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- CATEGORIES SECTION -->
+    <!-- ============================================================ -->
+    <section id="categories" class="py-20 bg-[var(--bg-color)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-xl">
+                    <span class="section-tag mb-4"><i class="fas fa-th-large mr-1"></i> Shop by Category</span>
+                    <h2 class="section-title">Explore Our <span>Categories</span></h2>
+                </div>
+                <a href="#products" class="btn btn-outline">View All Categories <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-pills text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Prescription<br>Medicines</h4>
+                </a>
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-leaf text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Vitamins &<br>Supplements</h4>
+                </a>
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-baby text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Baby &<br>Mom Care</h4>
+                </a>
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-heart text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Personal<br>Care</h4>
+                </a>
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-stethoscope text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Medical<br>Devices</h4>
+                </a>
+                <a href="#products" class="group bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--accent-color)] flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg">
+                    <div class="w-20 h-20 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-apple-alt text-3xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-semibold text-sm group-hover:text-[var(--accent-color)] transition-colors">Health Foods<br>& Drinks</h4>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- UPLOAD PRESCRIPTION SECTION -->
+    <!-- ============================================================ -->
+    <section id="prescription" class="py-20 bg-[var(--bg-color)] border-b border-[var(--border-light)] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent-color)] opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-light)] rounded-3xl p-8 lg:p-14 shadow-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="section-tag mb-4"><i class="fas fa-file-medical mr-1"></i> Order with Prescription</span>
+                        <h2 class="text-3xl lg:text-4xl font-extrabold text-[var(--text-main)] mt-4 mb-4 leading-tight">Upload Prescription & <br>Let Us Do The Rest</h2>
+                        <p class="text-[var(--text-muted)] text-base mb-8 leading-relaxed">Simply upload your valid medical prescription, and our expert pharmacists will prepare your medication for immediate home delivery.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white font-bold flex items-center justify-center flex-shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-bold text-[var(--text-main)] text-base">Upload Image/PDF</h4>
+                                    <p class="text-[var(--text-muted)] text-sm mt-1">Clear photo of your prescription.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white font-bold flex items-center justify-center flex-shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-bold text-[var(--text-main)] text-base">Pharmacist Review</h4>
+                                    <p class="text-[var(--text-muted)] text-sm mt-1">We verify the details and generate your cart.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-[var(--accent-color)] text-white font-bold flex items-center justify-center flex-shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-bold text-[var(--text-main)] text-base">Confirm & Checkout</h4>
+                                    <p class="text-[var(--text-muted)] text-sm mt-1">Review the medicines and pay securely online.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-[var(--bg-secondary)] p-8 rounded-2xl border-2 border-dashed border-[var(--accent-color)] text-center transition-all hover:bg-[var(--accent-light)] cursor-pointer group">
+                        <div class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mx-auto mb-6 shadow-md group-hover:scale-110 transition-transform border border-[var(--border-light)]">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-[var(--accent-color)]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">Drag & Drop Prescription</h3>
+                        <p class="text-[var(--text-muted)] text-sm mb-6">Supports JPG, PNG, PDF formats (Max 5MB)</p>
+                        <form class="flex flex-col items-center">
+                            <label class="btn btn-solid w-full max-w-xs cursor-pointer text-sm py-3">
+                                <i class="fas fa-paperclip mr-2"></i> Select File to Upload
+                                <input type="file" class="hidden" accept=".jpg,.jpeg,.png,.pdf">
+                            </label>
+                            <p class="text-[var(--text-dim)] text-xs mt-4"><i class="fas fa-lock mr-1"></i> Your data is 256-bit securely encrypted</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3: MEET OUR PHARMACY TEAM                            -->
+    <!-- ============================================================ -->
+    <section class="py-20 bg-[var(--bg-secondary)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="section-tag mb-4"><i class="fas fa-users mr-1"></i> Our Team</span>
+                <h2 class="section-title">Meet Your <span>Pharmacists</span></h2>
+                <p class="section-sub mx-auto mt-4">Our experienced team is dedicated to providing you with personalized care and expert advice.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-light)] text-center team-card shadow-sm hover:shadow-xl">
+                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-[var(--accent-light)]">
+                        <img src="img1/doc1.webp" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-base">Dr. Priya Sharma</h4>
+                    <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Chief Pharmacist</p>
+                    <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">15 years of experience in clinical pharmacy and patient counseling.</p>
+                    <div class="flex justify-center gap-3 mt-4">
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-light)] text-center team-card shadow-sm hover:shadow-xl">
+                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-[var(--accent-light)]">
+                        <img src="img1/doc2.webp" alt="Pharmacist" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-base">Dr. Vikram Singh</h4>
+                    <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Senior Pharmacist</p>
+                    <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Specializes in chronic disease management and medication therapy.</p>
+                    <div class="flex justify-center gap-3 mt-4">
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-light)] text-center team-card shadow-sm hover:shadow-xl">
+                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-[var(--accent-light)]">
+                        <img src="img1/doc3.webp" alt="Pharmacist" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-base">Dr. Meera Reddy</h4>
+                    <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Clinical Pharmacist</p>
+                    <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Expert in pediatric and geriatric pharmaceutical care.</p>
+                    <div class="flex justify-center gap-3 mt-4">
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-light)] text-center team-card shadow-sm hover:shadow-xl">
+                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-[var(--accent-light)]">
+                        <img src="img1/doc4.webp" alt="Pharmacist" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-[var(--text-main)] font-bold text-base">Dr. Arjun Patel</h4>
+                    <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Pharmacy Technician</p>
+                    <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Expert in medication compounding and inventory management.</p>
+                    <div class="flex justify-center gap-3 mt-4">
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TESTIMONIALS SECTION -->
+    <!-- ============================================================ -->
+    <section id="reviews" class="py-20 bg-[var(--bg-secondary)] border-b border-[var(--border-light)]">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="section-tag mb-4"><i class="fas fa-comments mr-1"></i> Testimonials</span>
+                <h2 class="section-title">What Our <span>Patients Say</span></h2>
+                <p class="section-sub mx-auto mt-4">Real stories from our valued customers who trust MediCare for their health needs.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] shadow-sm hover:shadow-lg transition-shadow relative">
+                    <i class="fas fa-quote-left text-4xl text-[var(--accent-light)] absolute top-6 right-6"></i>
+                    <div class="flex text-[#F59E0B] text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm italic mb-6 leading-relaxed">"The prescription upload feature is a lifesaver! I got my elderly mother's medication delivered within 2 hours. The packaging was neat and professional. Highly recommended!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden border border-[var(--border-light)]">
+                            <img src="home2/pat1.webp" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-[var(--text-main)] font-bold text-sm">Sarah Jenkins</h4>
+                            <p class="text-[var(--text-dim)] text-xs">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] shadow-sm hover:shadow-lg transition-shadow relative">
+                    <i class="fas fa-quote-left text-4xl text-[var(--accent-light)] absolute top-6 right-6"></i>
+                    <div class="flex text-[#F59E0B] text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm italic mb-6 leading-relaxed">"I have been ordering my monthly diabetes supplements its is work the from MediCare for over a year now. Their prices are unbeatable, and the pharmacist support is top-notch."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden border border-[var(--border-light)]">
+                            <img src="home2/pat2.webp" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-[var(--text-main)] font-bold text-sm">Emily Rodriguez</h4>
+                            <p class="text-[var(--text-dim)] text-xs">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-2xl border border-[var(--border-light)] shadow-sm hover:shadow-lg transition-shadow relative">
+                    <i class="fas fa-quote-left text-4xl text-[var(--accent-light)] absolute top-6 right-6"></i>
+                    <div class="flex text-[#F59E0B] text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm italic mb-6 leading-relaxed">"Great app and website interface. Very easy to find specific medical devices. Ordered a BP monitor, and it arrived the same day. Keep up the excellent work! the pharmacy is very clean"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden border border-[var(--border-light)]">
+                            <img src="home2/pat3.jpeg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-[var(--text-main)] font-bold text-sm">Marcus Chen</h4>
+                            <p class="text-[var(--text-dim)] text-xs">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER – ALWAYS DARK, LOGO MATCHES NAVBAR                    -->
+    <!-- ============================================================ -->
+    <footer>
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Brand – matches navbar exactly (dark mode) -->
+                <div>
+                    <a href="#home" class="brand-link inline-flex">
+                        <div class="brand-icon-wrapper">
+                            <i class="fas fa-prescription-bottle-medical"></i>
+                        </div>
+                        <div class="brand-logo" style="color: #e8f0f8 !important; font-size: 1.6rem; font-weight: 600 !important; letter-spacing: -0.5px;">
+                            <span style="color: #3a9ca6 !important;">Medi</span><span style="color: #e8f0f8 !important;">Care</span>
+                        </div>
+                    </a>
+                    <p class="text-[#a0b8d0] text-sm leading-relaxed mt-4">Your trusted pharmacy partner for genuine medicines, expert advice, and fast home delivery. Serving communities since 2010.</p>
+                    <div class="flex gap-3 mt-5">
+                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#home" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Home</a></li>
+                        <li><a href="#about" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> About</a></li>
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Products</a></li>
+                        <li><a href="#delivery" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Home Delivery</a></li>
+                        <li><a href="#prescription" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Upload Prescription</a></li>
+                        <li><a href="#locations" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Locations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4>Product Categories</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Prescription Meds</a></li>
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Vitamins &amp; Supplements</a></li>
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Baby Care</a></li>
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Surgical Devices</a></li>
+                        <li><a href="#products" class="hover:pl-2 transition-all inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[8px] text-[#3a9ca6]"></i> Personal Care</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4>Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-[#3a9ca6] mt-0.5"></i>
+                            <span class="text-[#a0b8d0]">45 Medical Plaza, Connaught Place, New Delhi</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone text-[#3a9ca6] mt-0.5"></i>
+                            <span class="text-[#a0b8d0]"><a href="tel:+16001234567" class="hover:text-[#3a9ca6]">+1 600 123 4567</a></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope text-[#3a9ca6] mt-0.5"></i>
+                            <span class="text-[#a0b8d0]"><a href="mailto:care@medicarepharmacy.com" class="hover:text-[#3a9ca6]">care@medicarepharmacy.com</a></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock text-[#3a9ca6] mt-0.5"></i>
+                            <span class="text-[#a0b8d0]">Mon–Sat: 7:30 AM – 10:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-[#6a8aaa]">&copy; 2026 <span class="text-[#3a9ca6] font-semibold">MediCare</span> Pharmacy. All rights reserved.</p>
+                <div class="flex flex-wrap gap-6 text-sm">
+                    <a href="#" class="text-[#6a8aaa] hover:text-[#3a9ca6] transition-colors">Terms of Service</a>
+                    <a href="#" class="text-[#6a8aaa] hover:text-[#3a9ca6] transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-[#6a8aaa] hover:text-[#3a9ca6] transition-colors">Refund Policy</a>
+                    <a href="#" class="text-[#6a8aaa] hover:text-[#3a9ca6] transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="#home" class="back-top-link inline-flex items-center gap-2 text-[#6a8aaa] text-xs font-semibold uppercase tracking-widest hover:text-[#3a9ca6] transition-colors">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script>
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 30) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // ===== MOBILE DRAWER =====
+        const mobileBtn = document.getElementById('mobile-btn');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            fullscreenMenu.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            drawerOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        mobileBtn.onclick = toggleMenu;
+        closeMenuBtn.onclick = closeMenu;
+        drawerOverlay.onclick = closeMenu;
+
+        // Close on resize >= 1280px
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1280) closeMenu();
+        });
+
+        // ===== THEME TOGGLE =====
+        const themeDesk = document.getElementById('theme-toggle-desktop');
+        const themeMob = document.getElementById('theme-toggle-mobile');
+        const iconDesk = document.getElementById('theme-icon-desktop');
+        const iconMob = document.getElementById('theme-icon-mobile');
+
+        const savedTheme = localStorage.getItem('pharmacy-theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme ? savedTheme === 'dark' : systemDark;
+
+        function setTheme(dark) {
+            if (dark) {
+                document.body.classList.add('dark-mode');
+                if (iconDesk) iconDesk.className = 'fas fa-sun';
+                if (iconMob) iconMob.className = 'fas fa-sun';
+                localStorage.setItem('pharmacy-theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (iconDesk) iconDesk.className = 'fas fa-moon';
+                if (iconMob) iconMob.className = 'fas fa-moon';
+                localStorage.setItem('pharmacy-theme', 'light');
+            }
+        }
+
+        setTheme(isDark);
+
+        function toggleTheme() {
+            const currentlyDark = document.body.classList.contains('dark-mode');
+            setTheme(!currentlyDark);
+        }
+
+        if (themeDesk) themeDesk.addEventListener('click', toggleTheme);
+        if (themeMob) themeMob.addEventListener('click', toggleTheme);
+
+        // ===== RTL TOGGLE =====
+        const rtlBtn = document.getElementById('rtl-btn');
+        const rtlMob = document.getElementById('rtl-toggle-mobile');
+        const rtlTexts = document.querySelectorAll('.rtl-text');
+
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.dir === 'rtl') {
+                html.dir = 'ltr';
+                rtlTexts.forEach(el => el.textContent = 'LTR');
+                if (rtlBtn) rtlBtn.innerHTML = 'LTR <i class="fas fa-arrow-right-arrow-left"></i>';
+            } else {
+                html.dir = 'rtl';
+                rtlTexts.forEach(el => el.textContent = 'RTL');
+                if (rtlBtn) rtlBtn.innerHTML = 'RTL <i class="fas fa-arrow-right-arrow-left"></i>';
+            }
+        }
+
+        if (rtlBtn) rtlBtn.addEventListener('click', toggleRTL);
+        if (rtlMob) rtlMob.addEventListener('click', toggleRTL);
+
+        // ===== MOBILE DROPDOWN TOGGLE =====
+        (function() {
+            const homeToggle = document.getElementById('mobile-home-toggle');
+            const homeItems = document.getElementById('mobile-home-items');
+
+            if (homeToggle && homeItems) {
+                homeToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                    homeItems.classList.toggle('open');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
