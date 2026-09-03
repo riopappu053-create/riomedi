@@ -120,7 +120,7 @@
         h2,
         .brand-logo {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
             letter-spacing: -0.01em;
         }
 
@@ -145,7 +145,7 @@
         }
 
         .font-extrabold {
-            font-weight: 700 !important;
+            font-weight: 600 !important;
         }
 
         /* ===== NAVBAR ===== */
@@ -562,9 +562,9 @@
 
         .brand-logo {
             font-size: 1.6rem;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
             letter-spacing: -0.5px;
-            line-height: 1.2;
+            
         }
 
         .brand-logo span {
@@ -581,7 +581,7 @@
             padding: 6px 18px;
             border-radius: 50px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             border: 1px solid var(--border-light);
@@ -589,7 +589,7 @@
 
         .section-title {
             font-size: 2.6rem;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-main);
             line-height: 1.15;
         }
@@ -618,7 +618,7 @@
         footer h4 {
             color: #ffffff;
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 1rem;
             margin-bottom: 18px;
             letter-spacing: 0.5px;
@@ -685,7 +685,7 @@
             color: #3a9ca6 !important;
             
             font-size: 1.6rem;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
             letter-spacing: -0.5px;
             line-height: 1.2;
         }
@@ -884,9 +884,14 @@
     <!-- ============================================================ -->
     <nav class="navbar" id="main-nav">
         <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
+            <!-- Brand -->
             <a href="index.html" class="brand-link">
-                <div class="brand-icon-wrapper"><i class="fas fa-prescription-bottle-medical"></i></div>
-                <div class="brand-logo" style="color: var(--text-main) !important;"><span>Medi</span>Care</div>
+                <div class="brand-icon-wrapper">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div class="brand-logo" style="color: var(--text-main) !important;">
+                    <span>Medi</span>Care
+                </div>
             </a>
             <div class="hidden xl:flex justify-center items-center flex-1 gap-1">
                 <div class="dropdown">
@@ -925,10 +930,15 @@
     <!-- ============================================================ -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="fullscreen-menu" id="fullscreen-menu">
+        <!-- Header -->
         <div class="w-full px-5 py-5 flex justify-between items-center shrink-0 border-b border-[var(--border-light)]">
-            <a href="index.html" class="brand-link" onclick="closeMenu()">
-                <div class="brand-icon-wrapper"><i class="fas fa-prescription-bottle-medical"></i></div>
-                <div class="brand-logo" style="color: var(--text-main) !important;"><span>Medi</span>Care</div>
+            <a href="#home" class="brand-link" onclick="closeMenu()">
+                <div class="brand-icon-wrapper">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div class="brand-logo" style="color: var(--text-main) !important;">
+                    <span>Medi</span>Care
+                </div>
             </a>
             <button id="close-menu"
                 class="w-10 h-10 flex items-center justify-center text-2xl text-[var(--text-main)] hover:text-[var(--accent-color)] transition-colors"><i

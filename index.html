@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
+   <style>
         /* ===== RESET & BASE ===== */
         * {
             margin: 0;
@@ -160,15 +160,14 @@
             border-bottom: 1px solid var(--border-light);
             box-shadow: 0 4px 30px var(--shadow-color);
         }
-
         .nav-link {
             position: relative;
             padding: 8px 16px;
             margin: 0 2px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             transition: all 0.25s ease;
@@ -200,7 +199,7 @@
             background: var(--menu-hover-bg);
         }
 
-        /* ===== DROPDOWN (Desktop) ===== */
+        /* ===== DROPDOWN ===== */
         .dropdown {
             position: relative;
             display: flex;
@@ -238,7 +237,6 @@
             visibility: visible;
             transform: translateY(0);
         }
-
         .dropdown-item {
             display: block;
             padding: 10px 22px;
@@ -251,7 +249,6 @@
             transition: all 0.2s ease;
             text-align: left;
             white-space: nowrap;
-            border-radius: 0;
         }
         .dropdown-item:hover {
             background: var(--menu-hover-bg);
@@ -300,7 +297,7 @@
             background: var(--menu-hover-bg);
         }
 
-        /* ===== THEME TOGGLE ===== */
+        /* ===== THEME & RTL TOGGLES ===== */
         .theme-btn {
             width: 38px;
             height: 38px;
@@ -321,6 +318,26 @@
             color: #fff;
             transform: rotate(20deg);
         }
+        .rtl-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .rtl-toggle:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
 
         /* ===== MOBILE DRAWER ===== */
         .drawer-overlay {
@@ -337,7 +354,6 @@
             opacity: 1;
             visibility: visible;
         }
-
         .fullscreen-menu {
             position: fixed;
             top: 0;
@@ -367,12 +383,11 @@
             visibility: visible;
             transform: translateX(0);
         }
-
         .mobile-link {
             display: block;
             width: 100%;
             padding: 16px 28px;
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             color: var(--text-main);
@@ -389,7 +404,6 @@
             padding-left: 28px;
             padding-right: 36px;
         }
-
         .mobile-menu-btn {
             width: 40px;
             height: 40px;
@@ -409,7 +423,6 @@
             background: var(--menu-hover-bg);
         }
 
-        /* ===== MOBILE DROPDOWN ===== */
         .mobile-dropdown {
             border-bottom: 1px solid var(--border-light);
         }
@@ -420,7 +433,7 @@
             padding: 16px 28px;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.125rem;
             color: var(--text-main);
             cursor: pointer;
             transition: all 0.25s ease;
@@ -461,10 +474,6 @@
             color: var(--accent-color) !important;
             padding-left: 36px !important;
             background: var(--menu-hover-bg) !important;
-        }
-        [dir="rtl"] .mobile-dropdown-link:hover {
-            padding-left: 28px !important;
-            padding-right: 36px !important;
         }
 
         /* ===== BRAND ===== */
@@ -533,13 +542,49 @@
             max-width: 600px;
             font-size: 1.1rem;
         }
+        .section-pad {
+            padding: 80px 0;
+        }
 
-        /* ===== FOOTER — ALWAYS DARK ===== */
+        /* ================================================================
+           FOOTER — ALWAYS DARK (overrides light/dark mode)
+           ================================================================ */
         footer {
-            background: #0a1628 !important;
+            background-color: #0a1628 !important;
             border-top: 1px solid #1a3a50 !important;
             padding-top: 60px;
             color: #e8f0f8 !important;
+        }
+        footer, footer * {
+            color: #e8f0f8;
+        }
+        footer .brand-logo span {
+            color: #3a9ca6 !important;
+        }
+        footer .brand-icon-wrapper i {
+            color: #3a9ca6 !important;
+        }
+        footer .brand-icon-wrapper {
+            border-color: rgba(58, 156, 166, 0.3);
+            background: rgba(58, 156, 166, 0.12);
+        }
+        footer .brand-icon-wrapper:hover {
+            background: rgba(58, 156, 166, 0.25);
+            border-color: #3a9ca6;
+        }
+        footer .fa-chevron-right {
+            color: #3a9ca6 !important;
+        }
+        footer .text-accent {
+            color: #3a9ca6 !important;
+        }
+        footer .text-muted,
+        footer .text-dim,
+        footer p,
+        footer li,
+        footer span:not(.brand-logo span):not(.text-accent),
+        footer a:not(.brand-link):not(.social-circle) {
+            color: #a0b8d0 !important;
         }
         footer h4 {
             color: #e8f0f8 !important;
@@ -549,22 +594,20 @@
             margin-bottom: 18px;
             letter-spacing: 0.5px;
         }
-        footer a,
-        footer li,
-        footer span:not(.brand-logo span) {
+        footer a:not(.brand-link):not(.social-circle) {
             color: #a0b8d0 !important;
             text-decoration: none;
             transition: all 0.3s;
             font-size: 0.9rem;
         }
-        footer a:hover {
+        footer a:not(.brand-link):not(.social-circle):hover {
             color: #3a9ca6 !important;
         }
         footer .social-circle {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: 1px solid #1a3a50 !important;
+            border: 1px solid rgba(58, 156, 166, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -573,8 +616,8 @@
             background: transparent;
         }
         footer .social-circle:hover {
-            background: #3a9ca6 !important;
-            border-color: #3a9ca6 !important;
+            background: #3a9ca6;
+            border-color: #3a9ca6;
             color: #ffffff !important;
             transform: translateY(-3px);
         }
@@ -583,74 +626,36 @@
             padding: 24px 0;
             margin-top: 40px;
         }
-        footer .footer-bottom p {
-            color: #6a8aaa !important;
-        }
+        footer .footer-bottom p,
         footer .footer-bottom a {
             color: #6a8aaa !important;
         }
         footer .footer-bottom a:hover {
             color: #3a9ca6 !important;
         }
-        /* Footer brand — matches navbar exactly (dark mode) */
-        footer .brand-link .brand-icon-wrapper {
-            border-color: rgba(58, 156, 166, 0.3) !important;
-            background: rgba(58, 156, 166, 0.12) !important;
+        footer ul {
+            list-style: none;
+            padding: 0;
         }
-        footer .brand-link .brand-icon-wrapper i {
+        footer ul li {
+            padding: 0;
+            margin-bottom: 6px;
+        }
+        footer .fa-map-marker-alt,
+        footer .fa-phone,
+        footer .fa-envelope,
+        footer .fa-clock {
             color: #3a9ca6 !important;
-        }
-        footer .brand-link .brand-logo {
-            color: #e8f0f8 !important;
-            font-size: 1.6rem;
-            font-weight: 600 !important;
-            letter-spacing: -0.5px;
-        }
-        footer .brand-link .brand-logo span {
-            color: #3a9ca6 !important;
-        }
-        footer .footer-bottom .text-accent {
-            color: #3a9ca6 !important;
-        }
-        /* back-to-top link */
-        footer .back-top-link {
-            color: #6a8aaa !important;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            transition: color 0.3s;
-        }
-        footer .back-top-link:hover {
-            color: #3a9ca6 !important;
-        }
-        /* footer list icons */
-        footer ul li i.fa-chevron-right {
-            color: #3a9ca6 !important;
-            font-size: 8px;
-        }
-        footer ul li a:hover {
-            padding-left: 12px !important;
         }
 
-        /* ===== ANIMATIONS ===== */
+        /* ===== ANIMATIONS & UTILS ===== */
         @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
         @keyframes float-delayed {
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
         .animate-float {
             animation: float 4s ease-in-out infinite;
@@ -658,140 +663,42 @@
         .animate-float-delayed {
             animation: float-delayed 4s ease-in-out 2s infinite;
         }
-
         @keyframes subtleZoom {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.06);
-            }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
         }
         .animate-zoom {
             animation: subtleZoom 20s infinite alternate ease-in-out;
         }
-
-        /* ===== HERO OVERLAY ===== */
         .hero-overlay {
             background: linear-gradient(135deg, rgba(10, 22, 40, 0.75) 0%, rgba(10, 126, 140, 0.4) 100%);
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .section-title {
-                font-size: 2rem;
-            }
+            .section-title { font-size: 2rem; }
         }
         @media (max-width: 768px) {
-            body {
-                padding-top: 64px;
-            }
-            .navbar {
-                padding: 0 16px;
-                height: 64px;
-            }
-            .navbar.scrolled {
-                height: 58px;
-            }
-            .section-title {
-                font-size: 1.7rem;
-            }
-            .brand-logo {
-                font-size: 1.3rem;
-            }
-            footer .brand-link .brand-logo {
-                font-size: 1.3rem !important;
-            }
+            body { padding-top: 64px; }
+            .navbar { padding: 0 16px; height: 64px; }
+            .navbar.scrolled { height: 58px; }
+            .section-title { font-size: 1.7rem; }
+            .brand-logo { font-size: 1.3rem; }
+            .section-pad { padding: 56px 0; }
         }
         @media (max-width: 480px) {
-            .section-title {
-                font-size: 1.4rem;
-            }
-            .brand-icon-wrapper {
-                width: 34px;
-                height: 34px;
-            }
-            .brand-icon-wrapper i {
-                font-size: 1rem;
-            }
-            .brand-logo {
-                font-size: 1.1rem;
-            }
-            footer .brand-link .brand-logo {
-                font-size: 1.1rem !important;
-            }
-            footer .brand-link .brand-icon-wrapper {
-                width: 34px;
-                height: 34px;
-            }
-            footer .brand-link .brand-icon-wrapper i {
-                font-size: 1rem;
-            }
+            .section-title { font-size: 1.4rem; }
+            .brand-icon-wrapper { width: 34px; height: 34px; }
+            .brand-icon-wrapper i { font-size: 1rem; }
+            .brand-logo { font-size: 1.1rem; }
         }
 
-        /* RTL Support */
-        [dir="rtl"] {
-            text-align: right;
-        }
-        [dir="rtl"] .ml-auto {
-            margin-right: auto;
-            margin-left: 0;
-        }
-        [dir="rtl"] .mr-auto {
-            margin-left: auto;
-            margin-right: 0;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-dark);
-        }
-
-        /* Trust badge pulse */
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-        .trust-pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* RTL toggle button */
-        .rtl-toggle {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            padding: 5px 12px;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        .rtl-toggle:hover {
-            background: var(--accent-color);
-            color: #fff;
-            border-color: var(--accent-color);
-        }
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
     </style>
 </head>
 <body>
@@ -802,7 +709,7 @@
     <nav class="navbar" id="main-nav">
         <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
             <!-- Brand -->
-            <a href="#home" class="brand-link">
+            <a href="index.html" class="brand-link">
                 <div class="brand-icon-wrapper">
                     <i class="fas fa-prescription-bottle-medical"></i>
                 </div>
@@ -829,17 +736,16 @@
                 <a href="about.html" class="nav-link">About</a>
                 <!-- Regular links -->
                 <a href="products.html" class="nav-link">Products</a>
-                <a href="delivery.html" class="nav-link"> Delivery</a>
-                <a href="prescription.html" class="nav-link">prescription</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="prescription.html" class="nav-link">Prescription</a>
                 <a href="locations.html" class="nav-link">Locations</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </div>
 
             <!-- ===== DESKTOP ACTIONS (Login / Signup + Toggles) ===== -->
             <div class="hidden xl:flex items-center gap-3">
-                <!-- Login & Signup Buttons -->
-                <a href="login.html" class="btn btn-outline !py-1.5 !px-5 !text-[10px]">Login</a>
-                <a href="signup.html" class="btn btn-solid !py-1.5 !px-5 !text-[10px]">SignUp</a>
+                <a href="login.html" class="btn btn-outline !py-1.5 !px-5 !text-[10px] !text-[var(--text-main)] font-bold">Login</a>
+                <a href="signup.html" class="btn btn-solid !py-1.5 !px-5 !text-[10px] !text-white font-bold">SignUp</a>
 
                 <div class="w-px h-5 bg-[var(--border-light)] mx-1"></div>
 
@@ -1233,7 +1139,7 @@
                     <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Chief Pharmacist</p>
                     <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">15 years of experience in clinical pharmacy and patient counseling.</p>
                     <div class="flex justify-center gap-3 mt-4">
-                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt fa-rotate-90 text-[var(--accent-color)] text-lg"></i></span>
                         <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
                     </div>
                 </div>
@@ -1245,7 +1151,7 @@
                     <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Senior Pharmacist</p>
                     <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Specializes in chronic disease management and medication therapy.</p>
                     <div class="flex justify-center gap-3 mt-4">
-                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt fa-rotate-90 text-[var(--accent-color)] text-lg"></i></span>
                         <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
                     </div>
                 </div>
@@ -1257,7 +1163,7 @@
                     <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Clinical Pharmacist</p>
                     <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Expert in pediatric and geriatric pharmaceutical care.</p>
                     <div class="flex justify-center gap-3 mt-4">
-                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt fa-rotate-90 text-[var(--accent-color)] text-lg"></i></span>
                         <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
                     </div>
                 </div>
@@ -1269,7 +1175,7 @@
                     <p class="text-[var(--accent-color)] text-xs font-semibold uppercase tracking-wider">Pharmacy Technician</p>
                     <p class="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">Expert in medication compounding and inventory management.</p>
                     <div class="flex justify-center gap-3 mt-4">
-                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt text-xs"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-phone-alt fa-rotate-90 text-[var(--accent-color)] text-lg"></i></span>
                         <span class="w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-[var(--accent-color)]"><i class="fas fa-envelope text-xs"></i></span>
                     </div>
                 </div>
@@ -1393,7 +1299,7 @@
                             <span class="text-[#a0b8d0]">45 Medical Plaza, Connaught Place, New Delhi</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-phone text-[#3a9ca6] mt-0.5"></i>
+                           <i class="fas fa-phone-alt fa-rotate-90 text-[var(--accent-color)] text-lg"></i>
                             <span class="text-[#a0b8d0]"><a href="tel:+16001234567" class="hover:text-[#3a9ca6]">+1 600 123 4567</a></span>
                         </li>
                         <li class="flex items-start gap-3">
